@@ -4,9 +4,31 @@ from .models import shop_items,serializedItems
 from rest_framework.response import Response
 from rest_framework import status
 from django.http import Http404
+from rest_framework import mixins , generics
+
 
 # Create your views here.
 
+# USING MIXINS CLASS 
+class itemShow(mixins.ListModelMixin ,mixins.CreateModelMixin, generics.GenericAPIView):
+    queryset= shop_items.objects.all()
+    serializer_class = serializedItems
+
+    def get(self,request):
+        return self.list(request)
+    def post(self,request):
+        return self.create(request)
+class itemDetail(generics.GenericAPIView , mixins.RetrieveModelMixin,mixins.UpdateModelMixin,mixins.DestroyModelMixin):
+    queryset= shop_items.objects.all()
+    serializer_class = serializedItems
+    def get(self, request, pk):
+        return self.retrieve(request,pk)
+    def put(self,request , pk):
+        return self.update(request,pk)
+    def delete(self,request, pk):
+        return self.destroy(request,pk)
+
+'''
 ## Creating class based view here
 
 class itemShow(APIView):
@@ -44,7 +66,7 @@ class itemDetail(APIView):
         item= self.item_get(pk)
         item.delete()
         return Response(status.HTTP_200_OK)
-
+'''
         
 
 
