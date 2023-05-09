@@ -8,8 +8,19 @@ from rest_framework import mixins , generics
 
 
 # Create your views here.
+#  CREATING API USING GENERICS
 
+class itemShow(generics.ListCreateAPIView):
+    queryset = shop_items.objects.all()
+    serializer_class = serializedItems
+
+class itemDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = shop_items.objects.all()
+    serializer_class = serializedItems
+
+'''
 # USING MIXINS CLASS 
+
 class itemShow(mixins.ListModelMixin ,mixins.CreateModelMixin, generics.GenericAPIView):
     queryset= shop_items.objects.all()
     serializer_class = serializedItems
@@ -27,6 +38,7 @@ class itemDetail(generics.GenericAPIView , mixins.RetrieveModelMixin,mixins.Upda
         return self.update(request,pk)
     def delete(self,request, pk):
         return self.destroy(request,pk)
+'''
 
 '''
 ## Creating class based view here
