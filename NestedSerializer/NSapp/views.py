@@ -5,12 +5,13 @@ from .models import Instructor,Course
 
 # Create your views here.
 
-
 class InstructorListView(generics.ListCreateAPIView):
-    serializer_class=serializedInstructor
     queryset= Instructor.objects.all()
+    serializer_class=serializedInstructor
+    
 
 class CoursesListView(generics.ListCreateAPIView):
-    serializer_class = serializedCourse
     queryset = Course.objects.all()
+    serializer_class = serializedCourse
+   
 
